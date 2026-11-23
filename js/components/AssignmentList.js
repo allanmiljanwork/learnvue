@@ -12,8 +12,8 @@ export default {
             </h2>
 
            <assignment-tags
+           v-model:currTag="currTag"
            :init-tags="assignments.map(a => a.tag)"
-           @change="currTag = $event"
            />
 
             <ul class="mt-6">
