@@ -13,7 +13,6 @@ export default {
 
            <assignment-tags
            :init-tags="assignments.map(a => a.tag)"
-           :curr-tag="currTag" 
            @change="currTag = $event"
            />
 
