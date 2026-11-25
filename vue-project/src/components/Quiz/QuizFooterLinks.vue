@@ -1,5 +1,5 @@
 <script setup>
-import { state } from '@/stores/quizStore'
+import { state } from '@/stores/QuizStore'
 </script>
 
 <template>

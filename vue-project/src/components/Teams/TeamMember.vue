@@ -5,7 +5,6 @@ defineProps({
   status: String,
 })
 </script>
-
 <template>
   <tr class="bg-gray-100 px-12">
     <td class="text-xl font-medium flex items-center gap-x-4 px-6 py-4">
