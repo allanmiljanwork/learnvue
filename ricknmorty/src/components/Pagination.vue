@@ -1,15 +1,35 @@
+<script setup>
+import { ref } from 'vue'
+
+defineProps({
+  totalCharacters: {
+    type: Number,
+    required: true,
+  },
+})
+
+const emit = defineEmits(['change'])
+const currentPage = ref(1)
+
+function onClickHandler(page) {
+  emit('change', page)
+}
+</script>
+
 <template>
-  <nav aria-label="Pagination">
-    <button>Previous</button>
-    <span>Page 1</span>
-    <button>Next</button>
-  </nav>
+  <vue-awesome-paginate
+    :total-items="totalCharacters"
+    :items-per-page="20"
+    :max-pages-shown="5"
+    v-model="currentPage"
+    @click="onClickHandler"
+  />
 </template>
 
 <style>
 .pagination {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-top: 20px;
-}</style>
+  margin-top: 24px;
+}
+</style>
