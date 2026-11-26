@@ -1,10 +1,25 @@
 <script setup>
 import Filters from '@/components/Filters.vue';
 import Pagination from '@/components/Pagination.vue';
+import { onMounted, ref } from 'vue';
+import { getCharacters } from '@/api/CharactersStore';
+
+const characters = ref([])
+
+async function loadCharacters() {
+  try {
+    characters.value = await getCharacters()
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+onMounted(loadCharacters)
 
 </script>
 
 <template>
+  
   <Filters class="filters" />
 
   <table>
@@ -18,18 +33,19 @@ import Pagination from '@/components/Pagination.vue';
     </thead>
 
     <tbody>
-      <tr>
-        <td>1</td>
-        <td>Example</td>
-        <td>Active</td>
+      <tr v-for="character in characters" :key="character.id">
+        <td>{{ character.id }}</td>
+        <td>{{ character.name }}</td>
+        <td>{{ character.status }}</td>
         <td>
-          <h1>img</h1>
+          <img :src="character.image"/>
         </td>
       </tr>
     </tbody>
   </table>
   
   <Pagination class="pagination" />
+
 </template>
 
 <style scoped>
