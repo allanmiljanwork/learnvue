@@ -1,13 +1,15 @@
+<script setup>
+const status = defineModel({type: String, default: ''})
+</script>
+
 <template>
   <section>
-    <input type="search" placeholder="Search by name" />
-    <select>
+    <select v-model="status">
       <option value="">Any status</option>
-      <option>Alive</option>
-      <option>Dead</option>
-      <option>Unknown</option>
+      <option value="alive">Alive</option>
+      <option value="dead">Dead</option>
+      <option value="unknown">Unknown</option>
     </select>
-    <button>Filter</button>
   </section>
 </template>
 

@@ -1,7 +1,20 @@
 const URL = 'https://rickandmortyapi.com/api/character'
 
-export async function getCharacters(page = 1) {
-  const res = await fetch(`${URL}?page=${page}`)
+function createFilterParams(filters = {}) {
+  const params = new URLSearchParams()
+
+  if (filters.status) {
+    params.set('status', filters.status)
+  }
+
+  return params
+}
+
+export async function getCharacters(page = 1, filters = {}) {
+  const params = createFilterParams(filters)
+  params.set('page', page)
+
+  const res = await fetch(`${URL}?${params}`)
 
   if (!res.ok) {
     throw new Error(`Request failed: ${res.status}`)
@@ -11,8 +24,10 @@ export async function getCharacters(page = 1) {
   return data.results
 }
 
-export async function getCharacterCount() {
-  const res = await fetch(URL)
+export async function getCharacterCount(filters = {}) {
+  const params = createFilterParams(filters)
+  const query = params.toString()
+  const res = await fetch(query ? `${URL}?${query}` : URL)
 
   if (!res.ok) {
     throw new Error(`Request failed: ${res.status}`)

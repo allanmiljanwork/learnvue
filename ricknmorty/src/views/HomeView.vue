@@ -1,35 +1,29 @@
 <script setup>
 import Filters from '@/components/Filters.vue';
 import Pagination from '@/components/Pagination.vue';
-import { getCharacters, getCharacterCount } from '@/api/CharactersStore';
-import { onMounted, ref } from 'vue';
+import { useCharacters } from '@/composables/useCharacters';
 
-const characters = ref([])
-const totalCharacters = ref(0)
-
-async function loadCharacters(page = 1){
-  try {
-  characters.value = await getCharacters(page) 
-} catch (error) {
-  console.log(error)
-}
-}
-
-onMounted(async () => {
-  try {
-    totalCharacters.value = await getCharacterCount()
-    await loadCharacters(1)
-  } catch (error) {
-    console.log(error)
-  }
-})
-
+const {
+  characters,
+  totalCharacters,
+  status,
+  loadCharacters,
+  applyFilters,
+} = useCharacters()
 
 </script>
 
 <template>
   
-  <Filters class="filters" @filter="applyFilters" />
+  <Filters class="filters" v-model="status" @update:model-value="applyFilters" /> 
+
+  <div class="pagination">
+  <Pagination
+  :key="status" 
+  :total-characters="totalCharacters"
+  @change="loadCharacters"
+  />
+  </div>
 
   <table>
     <thead>
@@ -54,7 +48,8 @@ onMounted(async () => {
   </table>
   
   <div class="pagination">
-  <Pagination 
+  <Pagination
+  :key="status" 
   :total-characters="totalCharacters"
   @change="loadCharacters"
   />
