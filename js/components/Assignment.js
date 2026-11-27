@@ -3,7 +3,11 @@ export default {
         <li>
             <label>
                 {{ assignment.name }}
-                <input type="checkbox" v-model="assignment.complete">
+                <input
+                    type="checkbox"
+                    :checked="assignment.complete"
+                    @change="$emit('complete-change', $event.target.checked)"
+                >
             </label>
         </li> 
     `,

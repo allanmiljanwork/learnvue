@@ -3,28 +3,52 @@
     {
       "name": "Finish project",
       "complete": false,
-      "id": 1,
+      "id": "1",
       "tag": "math"
     },
-
     {
       "name": "Read chapter 4",
       "complete": false,
-      "id": 1,
+      "id": "1",
       "tag": "science"
     },
-
     {
       "name": "Turn in homework",
       "complete": false,
-      "id": 1,
+      "id": "1",
       "tag": "math"
     },
     {
       "name": "finish lara",
       "complete": false,
-      "id": 1,
+      "id": "1",
       "tag": "math"
+    },
+    {
+      "name": "new assignment",
+      "complete": false,
+      "id": "w_YMpvApraQ"
+    },
+    {
+      "id": "_Ian4CxNbus",
+      "name": "hello",
+      "complete": false
+    },
+    {
+      "id": "t9h6B6tvml8",
+      "name": "test 3",
+      "complete": false
+    },
+    {
+      "id": "bPPQaSXW5Rg",
+      "name": "you",
+      "complete": false
+    },
+    {
+      "name": "what",
+      "complete": false,
+      "id": "A8LTkQYs2kw"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

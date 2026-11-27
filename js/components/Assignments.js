@@ -5,21 +5,26 @@ export default {
   components: { AssignmentList, AssignmentCreate },
 
   template: `
-        <section class="flex gap-8">
-            <assignment-list :assignments="filters.inProgress" title="In Progress">
-                <assignment-create @add="add"></assignment-create> 
-            </assignment-list>
-            
-            <div v-show="showCompleted">
-                <assignment-list 
-                    :assignments="filters.completed" 
-                    title="Completed" 
-                    can-toggle
-                    @toggle="showCompleted = !showCompleted"
-                ></assignment-list>
-            </div> 
-        </section>
-    `,
+    <section class="flex gap-8">
+      <assignment-list
+        :assignments="filters.inProgress"
+        title="In Progress"
+        @complete-change="updateComplete"
+      >
+        <assignment-create @add="add"></assignment-create>
+      </assignment-list>
+
+      <div v-show="showCompleted">
+        <assignment-list
+          :assignments="filters.completed"
+          title="Completed"
+          can-toggle
+          @complete-change="updateComplete"
+          @toggle="showCompleted = !showCompleted"
+        ></assignment-list>
+      </div>
+    </section>
+  `,
 
   data() {
     return {
@@ -48,12 +53,24 @@ export default {
   },
 
   methods: {
-    add(name) {
-      this.assignments.push({
-        name: name,
-        completed: false,
-        id: this.assignments.length + 1,
+    async add(name) {
+      const response = await fetch("http://localhost:3001/assignments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, complete: false }),
       });
+
+      this.assignments.push(await response.json());
+    },
+
+    async updateComplete(assignment, complete) {
+      await fetch(`http://localhost:3001/assignments/${assignment.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ complete }),
+      });
+
+      assignment.complete = complete;
     },
   },
 };
